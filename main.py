@@ -67,6 +67,8 @@ def main(page: ft.Page):
         ),
     )
 
+    calender.select_today()
+
 
 
 if __name__ == '__main__':

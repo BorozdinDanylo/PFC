@@ -47,5 +47,9 @@ class Month(ft.GridView):
         self.update()
 
 
+    def select_today(self):
+        self.controls[datetime(year=self.year, month=self.month, day=1).isoweekday() + datetime.now().day - 2].chose()
+
+
 
 
