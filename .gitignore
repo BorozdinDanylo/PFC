@@ -1,3 +1,3 @@
-venv
-saves
-
+/venv
+/saves
+/.idea
