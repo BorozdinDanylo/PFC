@@ -64,13 +64,13 @@ class Block(ft.Container):
     def set_color(self, color=""):
         match color:
             case "black":
-                self.content.color = ft.colors.BLACK
+                self.content.color = ft.Colors.BLACK
             case "red":
-                self.content.color = ft.colors.RED
+                self.content.color = ft.Colors.RED
             case "green":
                 self.content.color = "#10A83E"
             case "blue":
-                self.content.color = ft.colors.BLUE
+                self.content.color = ft.Colors.BLUE
 
 
     @staticmethod

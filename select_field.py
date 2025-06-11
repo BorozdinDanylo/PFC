@@ -15,15 +15,15 @@ def evaluation(normal, _is):
     abs_percents = abs(percents)
 
     if percents == -100:
-        return ft.colors.BLACK
+        return ft.Colors.BLACK
     if abs_percents <= 5:
-        return ft.colors.GREEN
+        return ft.Colors.GREEN
     if abs_percents <= 10:
-        return ft.colors.YELLOW
+        return ft.Colors.YELLOW
     if percents > 10:
-        return ft.colors.RED
+        return ft.Colors.RED
     if percents < -10:
-        return ft.colors.BLUE
+        return ft.Colors.BLUE
 
 
 
