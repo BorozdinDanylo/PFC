@@ -1,8 +1,9 @@
 import flet as ft
 from month import Month
 from select_field import SelectField
+from template import Template
 from datetime import datetime
-
+from blinker import Signal
 
 
 def main(page: ft.Page):
@@ -14,7 +15,6 @@ def main(page: ft.Page):
         else:
             page.update()
 
-
     def chenge_year(e):
         try:
             calender.set_year(e)
@@ -22,6 +22,9 @@ def main(page: ft.Page):
             pass
         else:
             page.update()
+
+    def close_template():
+        template.close()
 
 
     page.theme_mode = ft.ThemeMode.LIGHT
@@ -46,6 +49,11 @@ def main(page: ft.Page):
         on_change=chenge_year
     )
 
+    template = Template(page)
+
+    close_template_event = Signal("close")
+    close_template_event.connect(close_template)
+
     page.add(
         ft.Row(
             controls=[
@@ -58,6 +66,10 @@ def main(page: ft.Page):
                             ]
                         ),
                         calender,
+                        ft.Container(
+                            content=ft.TextButton("Add template", on_click=lambda _: template.open()),
+                            alignment=ft.alignment.center_right
+                        )
                     ]
                 ),
                 sf,
@@ -68,7 +80,6 @@ def main(page: ft.Page):
     )
 
     calender.select_today()
-
 
 
 if __name__ == '__main__':

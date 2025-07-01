@@ -7,7 +7,7 @@
    ```bash
    git clone https://github.com/BorozdinDanylo/PFC.git
     ```
-3. Navigate to the project folder and create a directory named `saves`
+3. Navigate to the project folder and create a directories named `saves` and `templates`
 4. Install the required libraries:
     ```bash
    pip install -r requirements.txt
