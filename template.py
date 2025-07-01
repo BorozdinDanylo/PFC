@@ -1,7 +1,6 @@
 import flet as ft
 from blinker import Signal
 import json
-import copy
 
 
 
