@@ -41,8 +41,8 @@ class Template:
                 ]
             ),
             actions=[
-                ft.TextButton("Yes", on_click=self._save),
-                ft.TextButton("No", on_click=self._close),
+                ft.TextButton("Save", on_click=self._save),
+                ft.TextButton("Censel", on_click=self._close),
             ],
             actions_alignment=ft.MainAxisAlignment.END,
             alignment=ft.alignment.center,

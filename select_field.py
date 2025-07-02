@@ -1,3 +1,5 @@
+from select_template import SelectTemplate
+from blinker import signal
 import json
 import flet as ft
 
@@ -36,6 +38,9 @@ class SelectField(ft.Column):
     def __init__(self):
         super().__init__()
 
+        load_template_event = signal("load_template")
+        load_template_event.connect(self._load_template)
+
         self.alignment = ft.MainAxisAlignment.CENTER
 
         self.protein = ft.Text(value="P: 0")
@@ -62,6 +67,38 @@ class SelectField(ft.Column):
 
         self.controls[-1], self.controls[-2] = self.controls[-2], self.controls[-1]
 
+        self.update()
+
+
+    def _open_template(self, *_):
+        SelectTemplate(self.page)
+
+
+    def _load_template(self, sender, **extra):
+        print(f"{sender=}, {extra=}")
+        name = extra.get("name", None)
+
+        if not name:
+            return
+
+        with open(f"templates\\{name}.json", "r") as f:
+            data: dict = json.load(f)
+
+        self.controls.append(
+            ft.Row(
+                controls=[
+                    ft.TextField(label="Б", value=data["P"], width=100, on_change=self.compute),
+                    ft.TextField(label="Ж", value=data["F"], width=100, on_change=self.compute),
+                    ft.TextField(label="В", value=data["C"], width=100, on_change=self.compute),
+                    ft.TextField(label="X", value=data["X"], width=100, on_change=self.compute),
+                    ft.TextButton(text="Remove", data=self.count_of_felds, on_click=self.__remove_feld),
+                ],
+                data=self.count_of_felds,
+            )
+        )
+
+        self.count_of_felds += 1
+        self.controls[-1], self.controls[-2] = self.controls[-2], self.controls[-1]
         self.update()
 
 
@@ -187,9 +224,17 @@ class SelectField(ft.Column):
             self.count_of_felds += 1
 
         self.controls.append(
-            ft.TextButton(
-                text="+",
-                on_click=self.add_feld,
+            ft.Row(
+                controls=[
+                    ft.TextButton(
+                        text="Create new",
+                        on_click=self.add_feld,
+                    ),
+                    ft.TextButton(
+                        text="Load template",
+                        on_click=self._open_template,
+                    ),
+                ]
             )
         )
 
