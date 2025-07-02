@@ -3,7 +3,6 @@ from month import Month
 from select_field import SelectField
 from template import Template
 from datetime import datetime
-from blinker import Signal
 
 
 def main(page: ft.Page):
@@ -22,9 +21,6 @@ def main(page: ft.Page):
             pass
         else:
             page.update()
-
-    def close_template():
-        template.close()
 
 
     page.theme_mode = ft.ThemeMode.LIGHT
@@ -51,9 +47,6 @@ def main(page: ft.Page):
 
     template = Template(page)
 
-    close_template_event = Signal("close")
-    close_template_event.connect(close_template)
-
     page.add(
         ft.Row(
             controls=[
@@ -68,8 +61,9 @@ def main(page: ft.Page):
                         calender,
                         ft.Container(
                             content=ft.TextButton("Add template", on_click=lambda _: template.open()),
-                            alignment=ft.alignment.center_right
-                        )
+                            alignment=ft.alignment.center_right,
+                            width=calender.width,
+                        ),
                     ]
                 ),
                 sf,
