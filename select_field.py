@@ -75,7 +75,6 @@ class SelectField(ft.Column):
 
 
     def _load_template(self, sender, **extra):
-        print(f"{sender=}, {extra=}")
         name = extra.get("name", None)
 
         if not name:
@@ -99,6 +98,7 @@ class SelectField(ft.Column):
 
         self.count_of_felds += 1
         self.controls[-1], self.controls[-2] = self.controls[-2], self.controls[-1]
+        self.compute()
         self.update()
 
 

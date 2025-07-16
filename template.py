@@ -21,8 +21,14 @@ class Template:
     def _save(self, *_):
         # noinspection PyTypeChecker
         column: ft.Column = self.dialog.content
-        with open(f"templates\\{column.controls[0].value}.json", "w") as f:
-            json.dump({field.label: field.value for field in column.controls[1:]}, f)
+
+        data = {field.label: field.value for field in column.controls[1:]}
+        print(data)
+        if len(data) == 4 and "" not in data.values():
+            with open(f"templates\\{column.controls[0].value}.json", "w") as f:
+                json.dump(data, f)
+        else:
+            self.page.open(ft.SnackBar(ft.Text("Error")))
 
         self._close()
 
