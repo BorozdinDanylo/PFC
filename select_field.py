@@ -102,7 +102,7 @@ class SelectField(ft.Column):
         self.update()
 
 
-    def compute(self, *_):
+    def compute(self, e: ft.ControlEvent = None):
         p = f = c = 0
 
         try:
@@ -111,6 +111,10 @@ class SelectField(ft.Column):
                 f += float(i.controls[1].value) * float(i.controls[3].value)
                 c += float(i.controls[2].value) * float(i.controls[3].value)
         except ValueError:
+            feld: ft.TextField = e.control
+            feld.value = ''.join(filter(str.isdigit, feld.value))
+
+            self.update()
             return
 
         kcal = (p + c) * 4 + f * 9

@@ -3,6 +3,15 @@ import json
 
 
 
+def check_text(e: ft.ControlEvent):
+    feld: ft.TextField = e.control
+    if not feld.value.isdigit():
+        feld.value = "".join(filter(str.isdigit, feld.value))
+
+    feld.update()
+
+
+
 class Template:
     def __init__(self, page: ft.Page):
         self.page = page
@@ -32,7 +41,6 @@ class Template:
 
         self._close()
 
-
     @property
     def _dialog(self):
         return ft.AlertDialog(
@@ -40,10 +48,10 @@ class Template:
             content=ft.Column(
                 controls=[
                     ft.TextField(label="Name"),
-                    ft.TextField(label="P", value="0", width=100),
-                    ft.TextField(label="F", value="0", width=100),
-                    ft.TextField(label="C", value="0", width=100),
-                    ft.TextField(label="X", value="1", width=100),
+                    ft.TextField(label="P", value="0", width=100, on_change=check_text),
+                    ft.TextField(label="F", value="0", width=100, on_change=check_text),
+                    ft.TextField(label="C", value="0", width=100, on_change=check_text),
+                    ft.TextField(label="X", value="1", width=100, on_change=check_text),
                 ]
             ),
             actions=[
