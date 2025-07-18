@@ -2,6 +2,7 @@ import flet as ft
 from month import Month
 from select_field import SelectField
 from template import Template
+from template_editer import TemplateEditer
 from datetime import datetime
 
 
@@ -46,6 +47,7 @@ def main(page: ft.Page):
     )
 
     template = Template(page)
+    template_editer = TemplateEditer(page)
 
     page.add(
         ft.Row(
@@ -61,6 +63,11 @@ def main(page: ft.Page):
                         calender,
                         ft.Container(
                             content=ft.TextButton("Add template", on_click=lambda _: template.open()),
+                            alignment=ft.alignment.center_right,
+                            width=calender.width,
+                        ),
+                        ft.Container(
+                            content=ft.TextButton("Edit template", on_click=lambda _: template_editer.open()),
                             alignment=ft.alignment.center_right,
                             width=calender.width,
                         ),

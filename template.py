@@ -3,15 +3,6 @@ import json
 
 
 
-def check_text(e: ft.ControlEvent):
-    feld: ft.TextField = e.control
-    if not feld.value.isdigit():
-        feld.value = "".join(filter(str.isdigit, feld.value))
-
-    feld.update()
-
-
-
 class Template:
     def __init__(self, page: ft.Page):
         self.page = page
@@ -32,7 +23,6 @@ class Template:
         column: ft.Column = self.dialog.content
 
         data = {field.label: field.value for field in column.controls[1:]}
-        print(data)
         if len(data) == 4 and "" not in data.values():
             with open(f"templates\\{column.controls[0].value}.json", "w") as f:
                 json.dump(data, f)
@@ -41,6 +31,17 @@ class Template:
 
         self._close()
 
+    @staticmethod
+    def check_text(e: ft.ControlEvent):
+        feld: ft.TextField = e.control
+
+        try:
+            float(feld.value)
+        except ValueError:
+            feld.value = "".join(filter(str.isdigit, feld.value))
+            feld.update()
+
+
     @property
     def _dialog(self):
         return ft.AlertDialog(
@@ -48,10 +49,10 @@ class Template:
             content=ft.Column(
                 controls=[
                     ft.TextField(label="Name"),
-                    ft.TextField(label="P", value="0", width=100, on_change=check_text),
-                    ft.TextField(label="F", value="0", width=100, on_change=check_text),
-                    ft.TextField(label="C", value="0", width=100, on_change=check_text),
-                    ft.TextField(label="X", value="1", width=100, on_change=check_text),
+                    ft.TextField(label="P", value="0", width=100, on_change=self.check_text),
+                    ft.TextField(label="F", value="0", width=100, on_change=self.check_text),
+                    ft.TextField(label="C", value="0", width=100, on_change=self.check_text),
+                    ft.TextField(label="X", value="1", width=100, on_change=self.check_text),
                 ]
             ),
             actions=[
